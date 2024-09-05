@@ -5,7 +5,7 @@ import { ShoppingCart, Coffee, Timer, Package } from 'lucide-react'
 
 export default function Home() {
   return (
-    <div>
+    <div className="pb-14">
       <div className="relative">
         <div className="flex items-start justify-between py-24  gap-10">
           <div className="flex flex-col">
@@ -79,10 +79,16 @@ export default function Home() {
         />
       </div>
 
-      <main className="grid grid-cols-4 gap-8">
-        {coffees.map((coffee) => {
-          return <Card key={coffee.id} image={coffee.image} />
-        })}
+      <main className="flex flex-col gap-14 mt-8">
+        <h2 className="font-title font-bold leading-tight text-base-subtitle text-4xl">
+          Nossos Cafés
+        </h2>
+
+        <div className="grid grid-cols-4 gap-8">
+          {coffees.map((coffee) => {
+            return <Card key={coffee.id} coffee={coffee} />
+          })}
+        </div>
       </main>
     </div>
   )

@@ -28,7 +28,7 @@
                 "tradicional"
             ],
             "price": 9.90,
-            "image": "/coffees/expresso-cremoso.png"
+            "image": "/coffees/expressoCremoso.png"
         },
         {
             "id": "3",
@@ -39,7 +39,7 @@
                 "gelado"
             ],
             "price": 9.90,
-            "image": "/coffees/cafe-gelado.png"
+            "image": "/coffees/cafeGelado.png"
         },
         {
             "id": "4",
@@ -50,7 +50,7 @@
                 "com leite"
             ],
             "price": 9.90,
-            "image": "/coffees/cafe-com-leite.png"
+            "image": "/coffees/cafeComLeite.png"
         },
         {
             "id": "5",
@@ -94,7 +94,7 @@
                 "com leite"
             ],
             "price": 9.90,
-            "image": "/coffees/mocaccino.png"
+            "image": "/coffees/mochaccino.png"
         },
         {
             "id": "9",
@@ -105,7 +105,7 @@
                 "com leite"
             ],
             "price": 9.90,
-            "image": "/coffees/chocolate-quente.png"
+            "image": "/coffees/chocolateQuente.png"
         },
         {
             "id": "10",
