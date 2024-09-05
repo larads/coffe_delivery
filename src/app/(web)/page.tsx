@@ -1,7 +1,9 @@
 import Image from 'next/image'
+import data from '@/utils/data.json'
 import { Card } from '@/components/card'
-import { coffees } from '@/utils/data.json'
 import { ShoppingCart, Coffee, Timer, Package } from 'lucide-react'
+
+const coffees = data.coffees
 
 export default function Home() {
   return (

@@ -1,7 +1,8 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
-import { ShoppingCart, Minus, Plus } from 'lucide-react'
+import { ShoppingCart } from 'lucide-react'
+import { QuantityInput } from './form/quantity-input'
 
 interface CardProps {
   coffee: {
@@ -29,7 +30,7 @@ export function Card({ coffee }: CardProps) {
   }
 
   return (
-    <div className="bg-base-card rounded-tr-lg rounded-bl-4xl px-5 pb-5 min-w-[256px] min-h-[310px] flex flex-col text-center">
+    <div className="bg-base-card rounded-tr-lg rounded-bl-4xl px-5 pb-5 min-w-[256px] min-h-[310px] flex flex-col text-center shadow-md">
       <Image
         src={coffee.image}
         alt=""
@@ -50,15 +51,12 @@ export function Card({ coffee }: CardProps) {
           )
         })}
       </div>
-
       <h2 className="mt-4 font-title text-xl leading-tight text-base-subtitle">
         {coffee.title}
       </h2>
-
       <p className="mt-2 text-base-label text-sm leading-tight">
         {coffee.description}
       </p>
-
       <div className="flex items-center justify-between mt-8">
         <div className="text-sm text-base-text leading-tight">
           R$ {''}
@@ -68,17 +66,11 @@ export function Card({ coffee }: CardProps) {
         </div>
 
         <div className="flex items-center gap-2 ">
-          <div className="flex items-center gap-2 p-2 bg-base-button rounded-md">
-            <button onClick={handleDecrement}>
-              <Minus className="w-4 h-4 text-purple-900 hover:text-purple-500" />
-            </button>
-
-            {quantity}
-
-            <button onClick={handleIncrement}>
-              <Plus className="w-4 h-4 text-purple-900 hover:text-purple-500" />
-            </button>
-          </div>
+          <QuantityInput
+            quantity={quantity}
+            incrementQuantity={handleIncrement}
+            decrementQuantity={handleDecrement}
+          />
 
           <button className="bg-purple-900 p-2 flex items-center justify-center rounded-md">
             <ShoppingCart className="w-5 h-5 text-white" />
