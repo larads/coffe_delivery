@@ -29,23 +29,27 @@ export const TextInput = forwardRef(function TextInput(
   }
 
   return (
-    <div
-      className="flex items-center justify-between"
-      data-state={isFocused ? 'focused' : 'blurred'}
-    >
-      <input
-        type="text"
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        className="w-full bg-base-input p-4 text-sm leading-tight rounded-sm border border-base-button text-base-label placeholder:text-base-label outline-none focus:border-yellow-500"
-        ref={ref}
-        {...props}
-      />
+    <div className="flex flex-col gap-1">
+      <div
+        className="flex items-center justify-between"
+        data-state={isFocused ? 'focused' : 'blurred'}
+      >
+        <input
+          type="text"
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          className={`w-full bg-base-input p-4 text-sm leading-tight rounded-md border border-base-button text-base-text placeholder:text-base-label outline-none focus:border-yellow-900 ${
+            error?.message && 'border-alert'
+          }`}
+          ref={ref}
+          {...props}
+        />
+      </div>
 
       {error?.message ? (
-        <span className="text-alert" role="alert">
+        <p className="text-alert text-xxs pl-1" role="alert">
           {error.message}
-        </span>
+        </p>
       ) : null}
     </div>
   )
