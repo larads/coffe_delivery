@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import { Card } from '@/components/card'
+import { coffees } from '@/utils/data.json'
 import { ShoppingCart, Coffee, Timer, Package } from 'lucide-react'
 
 export default function Home() {
@@ -76,6 +78,12 @@ export default function Home() {
           className="absolute top-0 left-0 max-h-[544px] w-full object-cover blur-sm"
         />
       </div>
+
+      <main className="grid grid-cols-4 gap-8">
+        {coffees.map((coffee) => {
+          return <Card key={coffee.id} image={coffee.image} />
+        })}
+      </main>
     </div>
   )
 }
