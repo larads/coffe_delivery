@@ -191,8 +191,12 @@ export default function Checkout() {
 
                     <div className="flex items-center gap-2">
                       <QuantityInput
-                        decrementQuantity={() => {}}
-                        incrementQuantity={() => {}}
+                        decrementQuantity={() => {
+                          console.log()
+                        }}
+                        incrementQuantity={() => {
+                          console.log()
+                        }}
                         quantity={1}
                       />
 
@@ -232,8 +236,12 @@ export default function Checkout() {
 
                     <div className="flex items-center gap-2">
                       <QuantityInput
-                        decrementQuantity={() => {}}
-                        incrementQuantity={() => {}}
+                        decrementQuantity={() => {
+                          console.log()
+                        }}
+                        incrementQuantity={() => {
+                          console.log()
+                        }}
                         quantity={1}
                       />
 
