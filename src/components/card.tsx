@@ -3,20 +3,28 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { ShoppingCart } from 'lucide-react'
 import { QuantityInput } from './form/quantity-input'
+import { useCart } from '@/hooks/useCart'
 
-interface CardProps {
-  coffee: {
-    id: string
-    title: string
-    description: string
-    tags: string[]
-    price: number
-    image: string
-  }
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+export interface Coffee {
+  id: string
+  title: string
+  description: string
+  tags: string[]
+  price: number
+  image: string
+  quantity: number
 }
 
-export function Card({ coffee }: CardProps) {
+interface CoffeeProps {
+  coffee: Coffee
+}
+
+export function Card({ coffee }: CoffeeProps) {
   const [quantity, setQuantity] = useState<number>(1)
+  const { addCoffeeToCart } = useCart()
 
   function handleIncrement() {
     setQuantity((state) => state + 1)
@@ -27,6 +35,27 @@ export function Card({ coffee }: CardProps) {
       return
     }
     setQuantity((state) => state - 1)
+  }
+
+  function handleAddToCart() {
+    const coffeeToAdd = {
+      ...coffee,
+      id: Number(coffee.id), // Converter para número
+      quantity,
+    }
+
+    toast.success('Item Adicionado', {
+      position: 'bottom-right',
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'light',
+    })
+
+    addCoffeeToCart(coffeeToAdd)
   }
 
   return (
@@ -72,9 +101,13 @@ export function Card({ coffee }: CardProps) {
             decrementQuantity={handleDecrement}
           />
 
-          <button className="bg-purple-900 p-2 flex items-center justify-center rounded-md">
+          <button
+            onClick={handleAddToCart}
+            className="bg-purple-900 p-2 flex items-center justify-center rounded-md"
+          >
             <ShoppingCart className="w-5 h-5 text-white" />
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>

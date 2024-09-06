@@ -1,7 +1,11 @@
 import Image from 'next/image'
 import { MapPin, Timer, DollarSign } from 'lucide-react'
 
-export default function Success() {
+import { OrderFormData } from '../checkout/page'
+
+export default function Success(props: OrderFormData) {
+  console.log(props)
+
   return (
     <main className="flex flex-col gap-10 mt-20">
       <div className="space-y-1">

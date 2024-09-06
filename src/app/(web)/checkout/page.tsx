@@ -8,11 +8,13 @@ import {
   CreditCardIcon,
 } from 'lucide-react'
 import * as zod from 'zod'
+import Link from 'next/link'
 import Image from 'next/image'
 import { Fragment } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { useCart } from '@/hooks/useCart'
 import { Divider } from '@/components/divider'
 import { TextInput } from '@/components/form/text-input'
 import { RadioInput } from '@/components/form/radio-input'
@@ -31,7 +33,7 @@ const orderFormValidationSchema = zod.object({
   }),
 })
 
-type OrderFormData = zod.infer<typeof orderFormValidationSchema>
+export type OrderFormData = zod.infer<typeof orderFormValidationSchema>
 
 export default function Checkout() {
   const {
@@ -48,6 +50,8 @@ export default function Checkout() {
   function handleOrderCheckout(data: OrderFormData) {
     console.log(data)
   }
+
+  const { cartItems } = useCart()
 
   return (
     <main className="mt-10">
@@ -74,8 +78,8 @@ export default function Checkout() {
 
                 <div className="mt-8 flex flex-col gap-4">
                   <TextInput
-                    maxLength={8}
                     placeholder="CEP"
+                    maxLength={8}
                     error={errors.cep}
                     {...register('cep', { valueAsNumber: true })}
                   />
@@ -84,6 +88,7 @@ export default function Checkout() {
                     error={errors.street}
                     {...register('street')}
                   />
+
                   <div className="grid grid-cols-2 gap-4">
                     <TextInput
                       placeholder="Número"
@@ -109,8 +114,8 @@ export default function Checkout() {
                       {...register('city')}
                     />
                     <TextInput
-                      maxLength={2}
                       placeholder="UF"
+                      maxLength={2}
                       error={errors.state}
                       {...register('state')}
                     />
@@ -172,96 +177,55 @@ export default function Checkout() {
           <h2 className="font-title text-lg leading-tight font-bold text-base-subtitle">
             Cafés selecionados
           </h2>
+
           <div className="bg-base-card p-10">
-            <Fragment>
-              <div className="flex items-start justify-between px-1 py-2">
-                <div className="flex items-start gap-5">
-                  <Image
-                    src={'/coffees/americano.png'}
-                    alt=""
-                    width={64}
-                    height={64}
-                    quality={100}
-                  />
-
-                  <div className="flex flex-col items-start gap-2">
-                    <h2 className="leading-tight text-base-subtitle">
-                      Expresso Americano
-                    </h2>
-
-                    <div className="flex items-center gap-2">
-                      <QuantityInput
-                        decrementQuantity={() => {
-                          console.log()
-                        }}
-                        incrementQuantity={() => {
-                          console.log()
-                        }}
-                        quantity={1}
+            {cartItems.map((cartItem) => {
+              return (
+                <Fragment key={cartItem.id}>
+                  <div className="flex items-start justify-between px-1 py-2">
+                    <div className="flex items-start gap-5">
+                      <Image
+                        src={cartItem.image}
+                        alt=""
+                        width={64}
+                        height={64}
+                        quality={100}
                       />
 
-                      <button className="bg-base-button rounded-md flex items-center gap-2 p-2 hover:bg-base-hover">
-                        <Trash className="w-4 h-4 text-purple-500" />
-                        <span className="text-sm leading-relaxed text-base-text uppercase">
-                          REMOVER
-                        </span>
-                      </button>
+                      <div className="flex flex-col items-start gap-2">
+                        <h2 className="leading-tight text-base-subtitle">
+                          {cartItem.title}
+                        </h2>
+
+                        <div className="flex items-center gap-2">
+                          <QuantityInput
+                            decrementQuantity={() => console.log()}
+                            incrementQuantity={() => console.log()}
+                            quantity={cartItem.quantity}
+                          />
+
+                          <button
+                            onClick={() => console.log()}
+                            className="bg-base-button rounded-md flex items-center gap-2 p-2 hover:bg-base-hover"
+                          >
+                            <Trash className="w-4 h-4 text-purple-500" />
+                            <span className="text-sm leading-relaxed text-base-text uppercase">
+                              REMOVER
+                            </span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
+
+                    <span className="font-bold leading-tight text-base-text">
+                      R$ 9,90
+                    </span>
                   </div>
-                </div>
 
-                <span className="font-bold leading-tight text-base-text">
-                  R$ 9,90
-                </span>
-              </div>
-
-              <Divider />
-            </Fragment>
-
-            <Fragment>
-              <div className="flex items-start justify-between px-1 py-2">
-                <div className="flex items-start gap-5">
-                  <Image
-                    src={'/coffees/americano.png'}
-                    alt=""
-                    width={64}
-                    height={64}
-                    quality={100}
-                  />
-
-                  <div className="flex flex-col items-start gap-2">
-                    <h2 className="leading-tight text-base-subtitle">
-                      Expresso Americano
-                    </h2>
-
-                    <div className="flex items-center gap-2">
-                      <QuantityInput
-                        decrementQuantity={() => {
-                          console.log()
-                        }}
-                        incrementQuantity={() => {
-                          console.log()
-                        }}
-                        quantity={1}
-                      />
-
-                      <button className="bg-base-button rounded-md flex items-center gap-2 p-2 hover:bg-base-hover">
-                        <Trash className="w-4 h-4 text-purple-500" />
-                        <span className="text-sm leading-relaxed text-base-text uppercase">
-                          REMOVER
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <span className="font-bold leading-tight text-base-text">
-                  R$ 9,90
-                </span>
-              </div>
-
-              <Divider />
-            </Fragment>
+                  <Divider />
+                </Fragment>
+              )
+            })}
 
             <div className="space-y-3">
               <div className="flex items-center justify-between text-base-text leading-tight">
@@ -279,14 +243,17 @@ export default function Checkout() {
                 <span>R$ 33,20</span>
               </div>
             </div>
-            <button
-              type="submit"
-              form="order"
-              disabled={!selectedPaymentMethod}
-              className="bg-yellow-500 text-white px-5 py-3 rounded-md w-full uppercase text-sm font-bold leading-relaxed disabled:opacity-30 disabled:cursor-not-allowed hover:bg-yellow-900 transition-colors duration-200 m-6"
-            >
-              Confirmar pedido
-            </button>
+
+            <Link href={'/success'}>
+              <button
+                type="submit"
+                form="order"
+                disabled={!selectedPaymentMethod}
+                className="bg-yellow-500 text-white px-5 py-3 rounded-md w-full uppercase text-sm font-bold leading-relaxed disabled:opacity-30 disabled:cursor-not-allowed hover:bg-yellow-900 transition-colors duration-200 mt-6"
+              >
+                Confirmar pedido
+              </button>
+            </Link>
           </div>
         </section>
       </div>
