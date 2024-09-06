@@ -1,6 +1,7 @@
 import '../globals.css'
 import type { Metadata } from 'next'
 import { Header } from '@/components/header'
+import { CartContextProvider } from '@/context/CartProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="pt">
       <body className="bg-background max-w-[1120px] mx-auto min-h-screen antialiased">
-        <Header />
-        {children}
+        <CartContextProvider>
+          <Header />
+          {children}
+        </CartContextProvider>
       </body>
     </html>
   )
