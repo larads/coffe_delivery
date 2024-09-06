@@ -1,17 +1,22 @@
 'use client'
-
-import { RadioInput } from '@/components/form/radio-input'
-import { TextInput } from '@/components/form/text-input'
 import {
+  Trash,
   MapPin,
+  Banknote,
+  Landmark,
   DollarSign,
   CreditCardIcon,
-  Landmark,
-  Banknote,
 } from 'lucide-react'
 import * as zod from 'zod'
+import Image from 'next/image'
+import { Fragment } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+
+import { Divider } from '@/components/divider'
+import { TextInput } from '@/components/form/text-input'
+import { RadioInput } from '@/components/form/radio-input'
+import { QuantityInput } from '@/components/form/quantity-input'
 
 const orderFormValidationSchema = zod.object({
   cep: zod.number({ invalid_type_error: 'Informe o CEP' }),
@@ -168,11 +173,109 @@ export default function Checkout() {
             Cafés selecionados
           </h2>
           <div className="bg-base-card p-10">
+            <Fragment>
+              <div className="flex items-start justify-between px-1 py-2">
+                <div className="flex items-start gap-5">
+                  <Image
+                    src={'/coffees/americano.png'}
+                    alt=""
+                    width={64}
+                    height={64}
+                    quality={100}
+                  />
+
+                  <div className="flex flex-col items-start gap-2">
+                    <h2 className="leading-tight text-base-subtitle">
+                      Expresso Americano
+                    </h2>
+
+                    <div className="flex items-center gap-2">
+                      <QuantityInput
+                        decrementQuantity={() => {}}
+                        incrementQuantity={() => {}}
+                        quantity={1}
+                      />
+
+                      <button className="bg-base-button rounded-md flex items-center gap-2 p-2 hover:bg-base-hover">
+                        <Trash className="w-4 h-4 text-purple-500" />
+                        <span className="text-sm leading-relaxed text-base-text uppercase">
+                          REMOVER
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <span className="font-bold leading-tight text-base-text">
+                  R$ 9,90
+                </span>
+              </div>
+
+              <Divider />
+            </Fragment>
+
+            <Fragment>
+              <div className="flex items-start justify-between px-1 py-2">
+                <div className="flex items-start gap-5">
+                  <Image
+                    src={'/coffees/americano.png'}
+                    alt=""
+                    width={64}
+                    height={64}
+                    quality={100}
+                  />
+
+                  <div className="flex flex-col items-start gap-2">
+                    <h2 className="leading-tight text-base-subtitle">
+                      Expresso Americano
+                    </h2>
+
+                    <div className="flex items-center gap-2">
+                      <QuantityInput
+                        decrementQuantity={() => {}}
+                        incrementQuantity={() => {}}
+                        quantity={1}
+                      />
+
+                      <button className="bg-base-button rounded-md flex items-center gap-2 p-2 hover:bg-base-hover">
+                        <Trash className="w-4 h-4 text-purple-500" />
+                        <span className="text-sm leading-relaxed text-base-text uppercase">
+                          REMOVER
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <span className="font-bold leading-tight text-base-text">
+                  R$ 9,90
+                </span>
+              </div>
+
+              <Divider />
+            </Fragment>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-base-text leading-tight">
+                <p>Total de itens</p>
+                <span>R$ 29,70</span>
+              </div>
+
+              <div className="flex items-center justify-between text-base-text leading-tight">
+                <p>Entrega</p>
+                <span>R$ 3,50</span>
+              </div>
+
+              <div className="flex items-center justify-between text-base-subtitle text-xl font-bold leading-tight">
+                <p>Total</p>
+                <span>R$ 33,20</span>
+              </div>
+            </div>
             <button
               type="submit"
               form="order"
               disabled={!selectedPaymentMethod}
-              className="bg-yellow-500 text-white px-5 py-3 rounded-md w-full uppercase text-sm font-bold leading-relaxed disabled:opacity-30 disabled:cursor-not-allowed hover:bg-yellow-900 transition-colors duration-200"
+              className="bg-yellow-500 text-white px-5 py-3 rounded-md w-full uppercase text-sm font-bold leading-relaxed disabled:opacity-30 disabled:cursor-not-allowed hover:bg-yellow-900 transition-colors duration-200 m-6"
             >
               Confirmar pedido
             </button>
